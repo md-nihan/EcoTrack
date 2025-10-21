@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - EcoTrack</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-leaf"></i>
+            <span>EcoTrack</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" data-section="overview">
+                <i class="fas fa-chart-line"></i>
+                <span>Overview</span>
+            </a>
+            <a href="#" class="nav-item" data-section="carbon">
+                <i class="fas fa-calculator"></i>
+                <span>Carbon Tracking</span>
+            </a>
+            <a href="#" class="nav-item" data-section="waste">
+                <i class="fas fa-recycle"></i>
+                <span>Waste Sorting</span>
+            </a>
+            <a href="#" class="nav-item" data-section="energy">
+                <i class="fas fa-bolt"></i>
+                <span>Renewable Energy</span>
+            </a>
+            <a href="#" class="nav-item" data-section="plastic">
+                <i class="fas fa-bottle-water"></i>
+                <span>Plastic Monitor</span>
+            </a>
+            <a href="#" class="nav-item" data-section="tips">
+                <i class="fas fa-lightbulb"></i>
+                <span>Eco Tips</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="#" class="nav-item" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 id="pageTitle">Dashboard Overview</h1>
+            </div>
+            <div class="header-right">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="notifications" id="notificationBell">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge" id="notificationCount">0</span>
+                </div>
+                <div class="user-profile" id="userProfile">
+                    <img src="https://via.placeholder.com/40" alt="User" id="userAvatar">
+                    <span id="userName">Loading...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Overview Section -->
+        <section id="overview" class="section active">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card carbon">
+                    <div class="stat-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalCarbon">0</h3>
+                        <p>kg CO₂ This Month</p>
+                        <span class="stat-trend positive">
+                            <i class="fas fa-arrow-down"></i> 12% vs last month
+                        </span>
+                    </div>
+                </div>
+                <div class="stat-card energy">
+                    <div class="stat-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalEnergy">0</h3>
+                        <p>kWh Renewable</p>
+                        <span class="stat-trend positive">
+                            <i class="fas fa-arrow-up"></i> 8% increase
+                        </span>
+                    </div>
+                </div>
+                <div class="stat-card plastic">
+                    <div class="stat-icon">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalPlastic">0</h3>
+                        <p>Plastic Items Tracked</p>
+                        <span class="stat-trend positive">
+                            <i class="fas fa-arrow-down"></i> 15% reduction
+                        </span>
+                    </div>
+                </div>
+                <div class="stat-card goal">
+                    <div class="stat-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="goalProgress">75%</h3>
+                        <p>Goal Achievement</p>
+                        <span class="stat-trend">
+                            <i class="fas fa-star"></i> On track!
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Carbon Emissions Trend</h3>
+                        <select id="carbonPeriod">
+                            <option value="week">This Week</option>
+                            <option value="month" selected>This Month</option>
+                            <option value="year">This Year</option>
+                        </select>
+                    </div>
+                    <canvas id="carbonChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Emissions by Category</h3>
+                    </div>
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Recent Activities -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>Recent Activities</h3>
+                    <button class="btn-primary btn-sm" onclick="showSection('carbon')">Add Activity</button>
+                </div>
+                <div class="table-container">
+                    <table id="recentActivitiesTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Details</th>
+                                <th>CO₂ Emissions</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activitiesTableBody">
+                            <tr>
+                                <td colspan="5" class="text-center">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Carbon Tracking Section -->
+        <section id="carbon" class="section">
+            <div class="section-header">
+                <h2>Carbon Footprint Tracker</h2>
+                <p>Log your daily activities and track your environmental impact</p>
+            </div>
+
+            <div class="card">
+                <h3>Add Activity</h3>
+                <div class="date-quick-select" style="margin-bottom: 1rem; padding: 1rem; background: #f0f9ff; border-radius: 8px;">
+                    <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: #0369a1;">Quick Date Selection:</p>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <button type="button" class="btn-secondary" onclick="setActivityDate(0)" style="padding: 0.5rem 1rem; background: #0ea5e9; color: white; border: none; border-radius: 6px; cursor: pointer;">Today</button>
+                        <button type="button" class="btn-secondary" onclick="setActivityDate(-1)" style="padding: 0.5rem 1rem; background: #0ea5e9; color: white; border: none; border-radius: 6px; cursor: pointer;">Yesterday</button>
+                        <button type="button" class="btn-secondary" onclick="setActivityDate(-2)" style="padding: 0.5rem 1rem; background: #0ea5e9; color: white; border: none; border-radius: 6px; cursor: pointer;">2 Days Ago</button>
+                        <button type="button" class="btn-secondary" onclick="setActivityDate(-3)" style="padding: 0.5rem 1rem; background: #0ea5e9; color: white; border: none; border-radius: 6px; cursor: pointer;">3 Days Ago</button>
+                        <button type="button" class="btn-secondary" onclick="setActivityDate(-7)" style="padding: 0.5rem 1rem; background: #0ea5e9; color: white; border: none; border-radius: 6px; cursor: pointer;">1 Week Ago</button>
+                    </div>
+                </div>
+                <form id="carbonActivityForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Activity Type</label>
+                            <select id="activityType" name="activityType" required>
+                                <option value="">Select type...</option>
+                                <option value="transportation">🚗 Transportation</option>
+                                <option value="energy">⚡ Energy</option>
+                                <option value="food">🍽️ Food</option>
+                                <option value="waste">♻️ Waste</option>
+                                <option value="water">💧 Water</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" name="date" id="activityDate">
+                        </div>
+                    </div>
+
+                    <!-- Transportation Fields -->
+                    <div id="transportFields" class="activity-fields" style="display: none;">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Transport Mode</label>
+                                <select name="transportMode">
+                                    <option value="car">🚗 Car</option>
+                                    <option value="electric_car">⚡ Electric Car</option>
+                                    <option value="bus">🚌 Bus</option>
+                                    <option value="train">🚆 Train</option>
+                                    <option value="bike">🚲 Bike</option>
+                                    <option value="walk">🚶 Walk</option>
+                                    <option value="flight">✈️ Flight</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Distance (km)</label>
+                                <input type="number" name="distance" min="0" step="0.1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Energy Fields -->
+                    <div id="energyFields" class="activity-fields" style="display: none;">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Electricity Usage (kWh)</label>
+                                <input type="number" name="electricityUsage" min="0" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>Gas Usage (m³)</label>
+                                <input type="number" name="gasUsage" min="0" step="0.1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Food Fields -->
+                    <div id="foodFields" class="activity-fields" style="display: none;">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Meat Consumption (kg)</label>
+                                <input type="number" name="meatConsumption" min="0" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>Vegetarian Meals</label>
+                                <input type="number" name="vegetarianMeals" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Waste Fields -->
+                    <div id="wasteFields" class="activity-fields" style="display: none;">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Waste Generated (kg)</label>
+                                <input type="number" name="wasteGenerated" min="0" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>Recycled Waste (kg)</label>
+                                <input type="number" name="recycledWaste" min="0" step="0.1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Water Fields -->
+                    <div id="waterFields" class="activity-fields" style="display: none;">
+                        <div class="form-group">
+                            <label>Water Usage (liters)</label>
+                            <input type="number" name="waterUsage" min="0" step="1">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description (optional)</label>
+                        <textarea name="description" rows="3" placeholder="Add any notes..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-plus"></i> Add Activity
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Waste Sorting Section -->
+        <section id="waste" class="section">
+            <div class="section-header">
+                <h2>Smart Waste Sorting</h2>
+                <p>Get instant guidance on how to dispose of your waste items</p>
+            </div>
+
+            <div class="card">
+                <h3>Classify Waste Item</h3>
+                <form id="wasteClassifyForm">
+                    <div class="form-group">
+                        <label>Describe the waste item</label>
+                        <input type="text" name="wasteDescription" id="wasteDescription" placeholder="e.g., plastic bottle, paper, batteries" required>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-search"></i> Classify Item
+                    </button>
+                </form>
+
+                <div id="wasteResult" class="waste-result" style="display: none;">
+                    <!-- Results will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Waste Categories Guide</h3>
+                <div class="waste-categories" id="wasteCategories">
+                    <div class="category-item recyclable">
+                        <i class="fas fa-recycle"></i>
+                        <h4>Recyclable</h4>
+                        <p>Paper, cardboard, glass, aluminum, certain plastics</p>
+                    </div>
+                    <div class="category-item biodegradable">
+                        <i class="fas fa-leaf"></i>
+                        <h4>Biodegradable</h4>
+                        <p>Food waste, organic materials, garden waste</p>
+                    </div>
+                    <div class="category-item hazardous">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h4>Hazardous</h4>
+                        <p>Batteries, chemicals, paint, electronics</p>
+                    </div>
+                    <div class="category-item landfill">
+                        <i class="fas fa-trash"></i>
+                        <h4>Landfill</h4>
+                        <p>Non-recyclable items, mixed materials</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Renewable Energy Section -->
+        <section id="energy" class="section">
+            <div class="section-header">
+                <h2>Renewable Energy Tracker</h2>
+                <p>Log and monitor your renewable energy generation</p>
+            </div>
+
+            <div class="card">
+                <h3>Log Renewable Energy</h3>
+                <form id="renewableEnergyForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Energy Source</label>
+                            <select name="energySource" required>
+                                <option value="">Select source...</option>
+                                <option value="solar">☀️ Solar</option>
+                                <option value="wind">💨 Wind</option>
+                                <option value="hydro">💧 Hydro</option>
+                                <option value="geothermal">🌋 Geothermal</option>
+                                <option value="biomass">🌿 Biomass</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Energy Generated (kWh)</label>
+                            <input type="number" name="energyGenerated" min="0" step="0.1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Energy Used (kWh)</label>
+                            <input type="number" name="energyUsed" min="0" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" name="date">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-plus"></i> Log Energy
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Plastic Monitor Section -->
+        <section id="plastic" class="section">
+            <div class="section-header">
+                <h2>Plastic Pollution Monitor</h2>
+                <p>Track your plastic usage and work towards reduction goals</p>
+            </div>
+
+            <div class="card">
+                <h3>Log Plastic Usage</h3>
+                <form id="plasticUsageForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Plastic Type</label>
+                            <select name="plasticType" required>
+                                <option value="">Select type...</option>
+                                <option value="PET">PET (1) - Bottles</option>
+                                <option value="HDPE">HDPE (2) - Jugs</option>
+                                <option value="PVC">PVC (3) - Pipes</option>
+                                <option value="LDPE">LDPE (4) - Bags</option>
+                                <option value="PP">PP (5) - Containers</option>
+                                <option value="single_use_plastic">Single-Use Plastic</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="number" name="quantity" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Recycled?</label>
+                            <select name="recycled">
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" name="date">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-plus"></i> Log Plastic
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Eco Tips Section -->
+        <section id="tips" class="section">
+            <div class="section-header">
+                <h2>Personalized Eco Tips</h2>
+                <p>Get customized recommendations to reduce your environmental impact</p>
+            </div>
+
+            <div class="tips-grid" id="tipsGrid">
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                    <h3>Loading tips...</h3>
+                    <p>Please wait while we fetch personalized recommendations</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Notification Panel -->
+    <div class="notification-panel" id="notificationPanel">
+        <div class="panel-header">
+            <h3>Notifications</h3>
+            <button class="close-panel" onclick="closeNotificationPanel()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="panel-content" id="notificationList">
+            <p class="text-center">Loading notifications...</p>
+        </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

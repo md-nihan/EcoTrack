@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - EcoTrack</title>
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-left">
+            <div class="auth-brand">
+                <i class="fas fa-leaf"></i>
+                <span>EcoTrack</span>
+            </div>
+            <h1>Welcome Back!</h1>
+            <p>Continue your journey towards a sustainable future</p>
+            <div class="auth-illustration">
+                <i class="fas fa-chart-line"></i>
+            </div>
+        </div>
+        <div class="auth-right">
+            <div class="auth-card">
+                <h2>Sign In</h2>
+                <p class="auth-subtitle">Enter your credentials to access your account</p>
+                
+                <div id="alertMessage" class="alert" style="display: none;"></div>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">
+                            <i class="fas fa-envelope"></i> Email Address
+                        </label>
+                        <input type="email" id="email" name="email" required placeholder="you@example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">
+                            <i class="fas fa-lock"></i> Password
+                        </label>
+                        <div class="password-input">
+                            <input type="password" id="password" name="password" required placeholder="••••••••">
+                            <button type="button" class="toggle-password" onclick="togglePassword()">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="remember">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary btn-block" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
+                    </button>
+                </form>
+                
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+                
+                <div class="social-login">
+                    <button class="btn-social google">
+                        <i class="fab fa-google"></i> Continue with Google
+                    </button>
+                    <button class="btn-social facebook">
+                        <i class="fab fa-facebook"></i> Continue with Facebook
+                    </button>
+                </div>
+                
+                <p class="auth-footer">
+                    Don't have an account? <a href="register.html">Sign up</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/auth.js"></script>
+</body>
+</html>

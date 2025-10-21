@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoTrack - Climate Change & Sustainability Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-leaf"></i>
+                <span>EcoTrack</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#stats">Impact</a></li>
+                <li><a href="login.html" class="btn-secondary">Login</a></li>
+                <li><a href="register.html" class="btn-primary">Get Started</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background"></div>
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    Track Your Impact,<br>
+                    <span class="gradient-text">Change the World</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Join the movement towards a sustainable future. Monitor your carbon footprint, 
+                    reduce plastic waste, and embrace renewable energy—all in one powerful platform.
+                </p>
+                <div class="hero-buttons">
+                    <a href="register.html" class="btn-primary btn-large">
+                        <i class="fas fa-rocket"></i> Start Your Journey
+                    </a>
+                    <a href="#features" class="btn-outline btn-large">
+                        <i class="fas fa-play-circle"></i> Learn More
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="userCount">0</div>
+                        <div class="stat-label">Active Users</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="carbonSaved">0</div>
+                        <div class="stat-label">kg CO₂ Saved</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="plasticReduced">0</div>
+                        <div class="stat-label">Plastic Items Tracked</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="floating-card card-1">
+                    <i class="fas fa-chart-line"></i>
+                    <div>Carbon Tracking</div>
+                </div>
+                <div class="floating-card card-2">
+                    <i class="fas fa-recycle"></i>
+                    <div>Smart Waste Sorting</div>
+                </div>
+                <div class="floating-card card-3">
+                    <i class="fas fa-solar-panel"></i>
+                    <div>Renewable Energy</div>
+                </div>
+                <div class="hero-circle"></div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Comprehensive Sustainability Tools</h2>
+                <p>Everything you need to make a positive environmental impact</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon carbon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Carbon Footprint Calculator</h3>
+                    <p>Track your daily activities and calculate their environmental impact with precision.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Transportation tracking</li>
+                        <li><i class="fas fa-check"></i> Energy consumption</li>
+                        <li><i class="fas fa-check"></i> Food impact analysis</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon waste">
+                        <i class="fas fa-trash-alt"></i>
+                    </div>
+                    <h3>Smart Waste Sorting</h3>
+                    <p>AI-powered waste classification to help you recycle correctly and reduce contamination.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Instant classification</li>
+                        <li><i class="fas fa-check"></i> Disposal instructions</li>
+                        <li><i class="fas fa-check"></i> Environmental impact</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon energy">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Renewable Energy Tracker</h3>
+                    <p>Monitor your renewable energy generation and celebrate your contribution to clean power.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Solar, wind, hydro tracking</li>
+                        <li><i class="fas fa-check"></i> Carbon offset calculation</li>
+                        <li><i class="fas fa-check"></i> Energy savings reports</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon plastic">
+                        <i class="fas fa-bottle-water"></i>
+                    </div>
+                    <h3>Plastic Pollution Monitor</h3>
+                    <p>Track plastic usage, set reduction goals, and discover sustainable alternatives.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Usage tracking</li>
+                        <li><i class="fas fa-check"></i> Reduction goals</li>
+                        <li><i class="fas fa-check"></i> Alternative suggestions</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon tips">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Personalized Tips</h3>
+                    <p>Get AI-driven recommendations tailored to your lifestyle for maximum impact.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Custom suggestions</li>
+                        <li><i class="fas fa-check"></i> Impact predictions</li>
+                        <li><i class="fas fa-check"></i> Progress tracking</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon realtime">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Real-Time Updates</h3>
+                    <p>Stay engaged with live notifications about your achievements and community impact.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Instant notifications</li>
+                        <li><i class="fas fa-check"></i> Goal achievements</li>
+                        <li><i class="fas fa-check"></i> Community stats</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <h2>Our Mission</h2>
+                    <p class="lead">Empowering individuals to take meaningful climate action through data-driven insights and community engagement.</p>
+                    <p>Climate change is the defining challenge of our time, but individual action can make a real difference. EcoTrack provides the tools and insights you need to understand your environmental impact and make informed decisions for a sustainable future.</p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <i class="fas fa-chart-line"></i>
+                            <div>
+                                <h4>Data-Driven Insights</h4>
+                                <p>Make informed decisions with accurate carbon calculations</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <h4>Community Impact</h4>
+                                <p>Join thousands making a difference together</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-mobile-alt"></i>
+                            <div>
+                                <h4>Easy to Use</h4>
+                                <p>Simple, intuitive interface for everyone</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="stats" class="stats-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Global Impact</h2>
+                <p>Together, we're making a difference</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-value" data-target="10000">0</div>
+                    <div class="stat-desc">Active Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="stat-value" data-target="500000">0</div>
+                    <div class="stat-desc">kg CO₂ Tracked</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <div class="stat-value" data-target="50000">0</div>
+                    <div class="stat-desc">Items Recycled</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="stat-value" data-target="250000">0</div>
+                    <div class="stat-desc">kWh Renewable Energy</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Make a Difference?</h2>
+                <p>Join EcoTrack today and start your journey towards a sustainable lifestyle</p>
+                <a href="register.html" class="btn-primary btn-large">
+                    <i class="fas fa-user-plus"></i> Create Free Account
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-leaf"></i> EcoTrack</h3>
+                    <p>Making sustainability accessible and actionable for everyone.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 EcoTrack. All rights reserved. Built for a sustainable future.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

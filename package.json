@@ -1,0 +1,32 @@
+{
+  "name": "mega-climate-change-and-sustainability",
+  "version": "1.0.0",
+  "description": "Climate Change and Sustainability Web Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "seed": "node seedDatabase.js",
+    "generate-jwt": "node utils/generateJWTSecret.js",
+    "validate-jwt": "node utils/validateJWT.js",
+    "test-jwt": "node utils/testJWT.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.2",
+    "node-fetch": "^2.7.0",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

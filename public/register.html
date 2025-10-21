@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - EcoTrack</title>
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-left">
+            <div class="auth-brand">
+                <i class="fas fa-leaf"></i>
+                <span>EcoTrack</span>
+            </div>
+            <h1>Start Your Journey</h1>
+            <p>Join thousands making a positive impact on the environment</p>
+            <div class="auth-illustration">
+                <i class="fas fa-globe-americas"></i>
+            </div>
+        </div>
+        <div class="auth-right">
+            <div class="auth-card">
+                <h2>Create Account</h2>
+                <p class="auth-subtitle">Fill in your details to get started</p>
+                
+                <div id="alertMessage" class="alert" style="display: none;"></div>
+                
+                <form id="registerForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">
+                                <i class="fas fa-user"></i> First Name
+                            </label>
+                            <input type="text" id="firstName" name="firstName" placeholder="John">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="lastName">
+                                <i class="fas fa-user"></i> Last Name
+                            </label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Doe">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="username">
+                            <i class="fas fa-user-circle"></i> Username
+                        </label>
+                        <input type="text" id="username" name="username" required placeholder="johndoe">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">
+                            <i class="fas fa-envelope"></i> Email Address
+                        </label>
+                        <input type="email" id="email" name="email" required placeholder="you@example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">
+                            <i class="fas fa-lock"></i> Password
+                        </label>
+                        <div class="password-input">
+                            <input type="password" id="password" name="password" required placeholder="••••••••" minlength="6">
+                            <button type="button" class="toggle-password" onclick="togglePassword('password')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <small>Minimum 6 characters</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">
+                            <i class="fas fa-lock"></i> Confirm Password
+                        </label>
+                        <div class="password-input">
+                            <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="••••••••">
+                            <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="terms" required>
+                            <span>I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a></span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary btn-block" id="registerBtn">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                </form>
+                
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+                
+                <div class="social-login">
+                    <button class="btn-social google">
+                        <i class="fab fa-google"></i> Sign up with Google
+                    </button>
+                    <button class="btn-social facebook">
+                        <i class="fab fa-facebook"></i> Sign up with Facebook
+                    </button>
+                </div>
+                
+                <p class="auth-footer">
+                    Already have an account? <a href="login.html">Sign in</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/auth.js"></script>
+</body>
+</html>
