@@ -442,8 +442,30 @@ function setupEventListeners() {
     // Menu toggle
     const menuToggle = document.getElementById('menuToggle');
     if (menuToggle) {
-        menuToggle.addEventListener('click', () => {
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent event from bubbling
             document.querySelector('.sidebar').classList.toggle('mobile-open');
+        });
+    }
+
+    // Close mobile sidebar when clicking outside
+    document.addEventListener('click', (e) => {
+        const sidebar = document.querySelector('.sidebar');
+        const menuToggle = document.getElementById('menuToggle');
+        
+        // Check if sidebar is open and click is outside sidebar and menu button
+        if (sidebar && sidebar.classList.contains('mobile-open')) {
+            if (!sidebar.contains(e.target) && e.target !== menuToggle) {
+                sidebar.classList.remove('mobile-open');
+            }
+        }
+    });
+
+    // Prevent sidebar clicks from closing it
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar) {
+        sidebar.addEventListener('click', (e) => {
+            e.stopPropagation();
         });
     }
 
@@ -633,6 +655,12 @@ function showSection(sectionId) {
     const section = document.getElementById(sectionId);
     if (section) {
         section.classList.add('active');
+        
+        // Close mobile sidebar after navigation
+        const sidebar = document.querySelector('.sidebar');
+        if (sidebar && sidebar.classList.contains('mobile-open')) {
+            sidebar.classList.remove('mobile-open');
+        }
         document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
         
         const titles = {
